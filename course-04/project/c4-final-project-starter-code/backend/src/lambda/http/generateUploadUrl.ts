@@ -5,8 +5,10 @@ import * as middy from 'middy'
 import { cors, httpErrorHandler } from 'middy/middlewares'
 import { getTodoById, updatedTodo } from '../../helpers/todosAcess'
 import { getUploadUrl } from '../../helpers/attachmentUtils'
-
+// import * as AWS from 'aws-sdk';
+//const s3 = new AWS.S3();
 const bucketname = process.env.ATTACHMENT_S3_BUCKET
+
 
 //import { createAttachmentPresignedUrl } from '../../businessLogic/todos'
 //import { getUserId } from '../utils'
@@ -16,8 +18,9 @@ export const handler = middy(
     const todoId = event.pathParameters.todoId
     const todo = await getTodoById(todoId)
     todo.attachmentUrl = `https://${bucketname}.s3.amazonaws.com/${todoId}`
+    
 
-    await updatedTodo(todo);
+    await updatedTodo (todo);
 
     const url= await getUploadUrl(todoId)
     // TODO: Return a presigned URL to upload a file for a TODO item with the provided id

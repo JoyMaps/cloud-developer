@@ -13,6 +13,13 @@ const index = process.env.TODOS_CREATED_AT_INDEX
 const docClient: DocumentClient = createDynamoDBClient()
 
 // // TODO: Implement the dataLayer logic
+// export class ToDoAccess {
+//     constructor(
+//         private readonly docClient: DocumentClient = new AWS.DynamoDB.DocumentClient(),
+//         private readonly s3Client: Types = new AWS.S3({ signatureVersion: 'v4' }),
+//         private readonly todoTable = process.env.TODOS_TABLE,
+//         private readonly s3BucketName = process.env.S3_BUCKET_NAME) {
+//     }
 export async function createTodo(todo: TodoItem): Promise<TodoItem> {
     await docClient
     .put({
