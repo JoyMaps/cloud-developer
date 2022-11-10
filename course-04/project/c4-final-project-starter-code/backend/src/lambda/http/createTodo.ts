@@ -4,9 +4,10 @@ import * as middy from 'middy'
 import { cors } from 'middy/middlewares'
 import { CreateTodoRequest } from '../../requests/CreateTodoRequest'
 //import { createTodo } from '../../businessLogic/todos'
-
-import { createTodo } from '../../helpers/todosAcess'
-import { todoBuilder } from '../../helpers/todos'
+//import {createToDo} from "../../businessLogic/todos";
+//import { createTodo } from '../../helpers/todosAcess'
+import { todoBuilder } from '../../businessLogic/todos'
+import { createTodo } from '../../dataLayer/todosAccess'
 
 export const handler = middy(
   async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
