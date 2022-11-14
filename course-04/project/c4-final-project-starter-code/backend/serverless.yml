@@ -151,18 +151,28 @@ functions:
           path: todos/{todoId}
           cors: true
           authorizer: Auth
-    iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-delete-todo-role-${self:provider.stage}
     iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - s3:DeleteObject
+        Resource: arn:aws:s3:::${self:provider.environment.ATTACHMENT_S3_BUCKET}
       - Effect: Allow
         Action:
           - dynamodb:DeleteItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
-      - Effect: Allow
-        Action:
-          - xray:PutTraceSegments
-        Resource: 
-          - '*'
-          # reqValidatorName: 'xMyRequestValidator'
+    # iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-delete-todo-role-${self:provider.stage}
+    # iamRoleStatements:
+    #   - Effect: Allow
+    #     Action:
+    #       - dynamodb:DeleteItem
+    #       - dynamodb:Query
+    #     Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
+    #   - Effect: Allow
+    #     Action:
+    #       - dynamodb:Query
+    #       - dynamodb:DeleteItem
+    #     Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}/index/${self:provider.environment.TODOS_CREATED_AT_INDEX}
+                    # reqValidatorName: 'xMyRequestValidator'
 
   # TODO: Configure this function
   # Provide property for setting up CORS, Authorizer, iamRoleStatements
